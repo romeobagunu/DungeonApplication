@@ -27,14 +27,20 @@ namespace DungeonLibrary
                 }
             }
         }
+        public string Description { get; set; }
 
         //CTOR
+        public Monster()
+        {
+
+        }
         //Remember: We need ALL of the properties of this Class as parameters, including this inherited from Character.
         //We then use " : base() " and pass in the parameters IN THE SAME ORDER as the FQCTOR on Character.
-        public Monster(string name, int hitChance, int block, int life, int maxLife, int minDmg, int maxDmg) : base (name, hitChance, block, maxLife, life)
+        public Monster(string name, string description, int hitChance, int block, int life, int maxLife, int minDmg, int maxDmg) : base (name, hitChance, block, maxLife, life)
         {
             //The only assignments we need in the Constructor are those exclusive to Monster.
             //i.e. They are already covered by the base Constructor.
+            Description = description;
             MaxDmg = maxDmg;
             MinDmg = minDmg;
         }
@@ -42,7 +48,8 @@ namespace DungeonLibrary
         //METHODS
         public override string ToString()
         {
-            return base.ToString() + $"\nDamage: {MinDmg} - {MaxDmg}";//Add the unique properties to the ToString();
+            return base.ToString() + $"\nDamage: {MinDmg} - {MaxDmg}" +
+                $"\nDescription: {Description}";//Add the unique properties to the ToString();
         }
 
         public override int CalcDamage()
