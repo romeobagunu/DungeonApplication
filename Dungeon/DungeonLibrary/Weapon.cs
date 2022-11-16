@@ -36,7 +36,7 @@ namespace DungeonLibrary
         public WeaponType Type { get; set; }
 
         //CTORS
-        public Weapon(int maxDamage, string name, int bonusHitChance, bool isTwoHanded, int minDamage, WeaponType type)
+        public Weapon(int maxDamage, string name, int bonusHitChance, bool isTwoHanded, int minDamage, WeaponType type)//FQCTOR
         {
             MaxDamage = maxDamage;
             Name = name;
