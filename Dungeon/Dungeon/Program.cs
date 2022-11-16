@@ -1,4 +1,6 @@
-﻿namespace Dungeon
+﻿using DungeonLibrary;
+
+namespace Dungeon
 {
     internal class Program
     {
@@ -11,6 +13,11 @@
             #region Create Player
 
             //TODO: Create Player Object
+
+            Console.WriteLine("What is your name?");
+            string playerName = Console.ReadLine();
+            Weapon weapon = new Weapon(70, "Sword", 10, true, 35, WeaponType.Sword);
+            Player player = new Player(playerName, 70, 5, 100, 100, PlayerRace.Human, weapon);
 
             #endregion
 
@@ -61,6 +68,7 @@
                             break;
                         case "P":
                             //TODO: Print Player stats. (ToString() method)
+                            Console.WriteLine(player);
                             break;
                         case "M":
                             //TODO: Print Monster stats. (ToString() method)

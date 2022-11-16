@@ -47,7 +47,7 @@
             return string.Format("\n--== " + Name + "==--\n" +
                 "Life: " + Life + " / " + MaxLife + "\n" +
                 "Hit Chance: " + HitChance + "%\n" +
-                "Block: " + Block + "|n");
+                "Block: " + Block + "\n");
         }
 
         public virtual int CalcBlock()
