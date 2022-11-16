@@ -48,6 +48,32 @@ namespace Dungeon
                 //the return type of GetRoom(). In my case, I return void,
                 //and write to the Console inside the method.
 
+                //Create Monster objects:
+                Rabbit r1 = new Rabbit();
+                Rabbit r2 = new Rabbit("Buneary", "From the Sinnoh Region!", 20, 20, 70, 0, 5, 10, true);
+                Vampire v1 = new Vampire();
+                Vampire v2 = new Vampire("The Count", "1! Ah, ah ah. 2! Ah, ah, ah. 3!", 25, 25, 60, 1, 10, 15, false);
+                Turtle t1 = new Turtle();
+                Turtle t2 = new Turtle("Franklin", "He can count by twos and tie his shoes", 10, 10, 50, 10, 5, 10, 50, 80);
+
+                //Add the Monsters to a Collection:
+                Monster[] monsters =
+                {
+                    r1,
+                    r2, r2, r2,
+                    v1,
+                    v2, v2,
+                    t1,
+                    t2
+                };
+
+                //Pick one at random to place in the room.
+                Random rand = new Random();
+                int randomNbr = rand.Next(monsters.Length);
+                Monster monster = monsters[randomNbr];
+
+                Console.WriteLine("You encountered {0}!", monster.Name);
+
                 #endregion
 
                 #region Menu Loop
