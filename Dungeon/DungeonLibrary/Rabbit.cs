@@ -25,8 +25,8 @@ namespace DungeonLibrary
         //EXAMPLE: An empty constructor for default values:
         public Rabbit()//Take in no parameters.
         {
-            Name = "Bugs Bunny";
-            Description = "It's not Wabbit Season today!";
+            Name = "White Rabbit";
+            Description = "Well, that's no ordinary rabbit! That's the most foul, cruel, and bad-tempered rodent you ever set eyes on!";
             Life = 100;
             MaxLife = 100;
             HitChance = 100;
