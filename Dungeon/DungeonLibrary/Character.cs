@@ -32,6 +32,10 @@
         }
 
         //CONSTRUCTOR
+        public Character()
+        {
+
+        }
         public Character(string name, int hitChance, int block, int maxLife, int life)//FQCTOR
         {
             Name = name;
