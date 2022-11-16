@@ -12,11 +12,17 @@ namespace Dungeon
 
             #region Create Player
 
-            //TODO: Create Player Object
-
+            //Prompt the user to input their name:
             Console.WriteLine("What is your name?");
+
+            //Store the user input in a string.
             string playerName = Console.ReadLine();
+            
+            //Construct the Player's weapon:
             Weapon weapon = new Weapon(70, "Sword", 10, true, 35, WeaponType.Sword);
+
+            //Construct the Player object:
+            //NOTE: Pass in the user input string as the Name for the Player.
             Player player = new Player(playerName, 70, 5, 100, 100, PlayerRace.Human, weapon);
 
             #endregion
@@ -31,14 +37,42 @@ namespace Dungeon
 
                 #region Create Room & Monster
 
+                //Because we are doing the Console.WriteLine() inside
+                //the GetRoom() method, we can just call the method here.
                 GetRoom();
 
-                //TODO: Random Encounters
-                /*
-                    1. A Collection of Monster Objects
-                    2. A Random Number Generator
-                    3. Generate a Random Encounter
-                 */
+                //However, an alternative solution is to return a string
+                //from GetRoom() and then pass that into the CW like:
+                //Console.WriteLine(GetRoom());
+                //Again, this would only work if you have string as
+                //the return type of GetRoom(). In my case, I return void,
+                //and write to the Console inside the method.
+
+                //Create Monster objects:
+                Rabbit r1 = new Rabbit();
+                Rabbit r2 = new Rabbit("Buneary", "From the Sinnoh Region!", 20, 20, 70, 0, 5, 10, true);
+                Vampire v1 = new Vampire();
+                Vampire v2 = new Vampire("The Count", "1! Ah, ah ah. 2! Ah, ah, ah. 3!", 25, 25, 60, 1, 10, 15, false);
+                Turtle t1 = new Turtle();
+                Turtle t2 = new Turtle("Franklin", "He can count by twos and tie his shoes", 10, 10, 50, 10, 5, 10, 50, 80);
+
+                //Add the Monsters to a Collection:
+                Monster[] monsters =
+                {
+                    r1,
+                    r2, r2, r2,
+                    v1,
+                    v2, v2,
+                    t1,
+                    t2
+                };
+
+                //Pick one at random to place in the room.
+                Random rand = new Random();
+                int randomNbr = rand.Next(monsters.Length);
+                Monster monster = monsters[randomNbr];
+
+                Console.WriteLine("You encountered {0}!", monster.Name);
 
                 #endregion
 
@@ -67,7 +101,9 @@ namespace Dungeon
                             isFighting = false;
                             break;
                         case "P":
-                            //TODO: Print Player stats. (ToString() method)
+                            //Because we have an override of the ToString() method on our Player class,
+                            //that information can be printed to the console simply by passing the 
+                            //Player object into the Console.WriteLine();
                             Console.WriteLine(player);
                             break;
                         case "M":
