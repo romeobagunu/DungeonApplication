@@ -22,6 +22,20 @@ namespace DungeonLibrary
             IsFluffy = isFluffy;//Assign the unique property.
         }
 
+        //EXAMPLE: An empty constructor for default values:
+        public Rabbit()//Take in no parameters.
+        {
+            Name = "Bugs Bunny";
+            Description = "It's not Wabbit Season today!";
+            Life = 100;
+            MaxLife = 100;
+            HitChance = 100;
+            Block = 0;
+            MinDmg = 5;
+            MaxDmg = 5;
+            IsFluffy = false;
+        }//default Rabbit
+
         public override string ToString()//EXAMPLE: Override the ToString() using the unique property
         {
             return base.ToString() + (IsFluffy ? "\nIt's so fluffy, I'm gonna die!"
