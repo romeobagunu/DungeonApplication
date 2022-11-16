@@ -12,11 +12,17 @@ namespace Dungeon
 
             #region Create Player
 
-            //TODO: Create Player Object
-
+            //Prompt the user to input their name:
             Console.WriteLine("What is your name?");
+
+            //Store the user input in a string.
             string playerName = Console.ReadLine();
+            
+            //Construct the Player's weapon:
             Weapon weapon = new Weapon(70, "Sword", 10, true, 35, WeaponType.Sword);
+
+            //Construct the Player object:
+            //NOTE: Pass in the user input string as the Name for the Player.
             Player player = new Player(playerName, 70, 5, 100, 100, PlayerRace.Human, weapon);
 
             #endregion
@@ -67,7 +73,9 @@ namespace Dungeon
                             isFighting = false;
                             break;
                         case "P":
-                            //TODO: Print Player stats. (ToString() method)
+                            //Because we have an override of the ToString() method on our Player class,
+                            //that information can be printed to the console simply by passing the 
+                            //Player object into the Console.WriteLine();
                             Console.WriteLine(player);
                             break;
                         case "M":
