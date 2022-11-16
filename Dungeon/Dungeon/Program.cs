@@ -37,14 +37,16 @@ namespace Dungeon
 
                 #region Create Room & Monster
 
+                //Because we are doing the Console.WriteLine() inside
+                //the GetRoom() method, we can just call the method here.
                 GetRoom();
 
-                //TODO: Random Encounters
-                /*
-                    1. A Collection of Monster Objects
-                    2. A Random Number Generator
-                    3. Generate a Random Encounter
-                 */
+                //However, an alternative solution is to return a string
+                //from GetRoom() and then pass that into the CW like:
+                //Console.WriteLine(GetRoom());
+                //Again, this would only work if you have string as
+                //the return type of GetRoom(). In my case, I return void,
+                //and write to the Console inside the method.
 
                 #endregion
 
