@@ -27,6 +27,11 @@ namespace Dungeon
 
             #endregion
 
+            //Track the score:
+            int score = 0;
+            //We will update this score whenever the player defeats a Monster
+            //then display the score to the player when they exit the game.
+
             #region Gameplay Loop
 
             bool isPlaying = true;
