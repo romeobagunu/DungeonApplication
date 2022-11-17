@@ -71,6 +71,48 @@ namespace Dungeon
 
             } while (playerIsChoosingWeapon);//3b) CONDITION
 
+            /* BONUS: Customizing the player race.
+                1) Prompt user input
+                2) Surround in a loop
+                3) Assign Race property based on choice.
+             */
+
+            Console.Clear();//Clear text from weapon customization
+
+            //2a) COUNTER
+            bool playerIsChoosingRace = true;
+            do
+            {
+                //1) Prompt user input
+                Console.WriteLine("\nChoose a Race:" +
+                    "\n(H) Human" +
+                    "\n(D) Dwarf" +
+                    "\n(E) Elf");
+
+                //Store key input
+                ConsoleKey raceChoice = Console.ReadKey().Key;
+                Console.Clear();//Clear the input from the console.
+
+                switch(raceChoice)
+                {
+                    case ConsoleKey.H:
+                        player.Race = PlayerRace.Human;//3) Assign based on input
+                        playerIsChoosingRace = false;//2c) UPDATE
+                        break;
+                    case ConsoleKey.D:
+                        player.Race = PlayerRace.Dwarf;//3) Assign based on input
+                        playerIsChoosingRace = false;//2c) UPDATE
+                        break;
+                    case ConsoleKey.E:
+                        player.Race = PlayerRace.Elf;//3) Assign based on input
+                        playerIsChoosingRace = false;//2c) UPDATE
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. Please press (H), (D), or (E).");
+                        break;
+                }
+
+            } while (playerIsChoosingRace);//2b) CONDITION
             #endregion
 
             //Track the score:
