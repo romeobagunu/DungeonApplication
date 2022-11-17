@@ -102,7 +102,7 @@ namespace Dungeon
                     switch(fightingChoice.ToUpper())
                     {
                         case "A":
-                            //TODO: Combat Methods.
+                            Combat.DoBattle(player, monster);
 
                             //Check Monster Health
                             if(monster.Life <= 0)
@@ -127,6 +127,11 @@ namespace Dungeon
                             break;
                         case "R":
                             Console.WriteLine("Running away!");
+
+                            //Give the monster an 'attack of opportunity' when the player attempts to run away:
+                            Console.WriteLine($"{monster.Name} attacks you as you flee!");
+                            Combat.DoAttack(monster, player);
+
                             playerIsFighting = false;
                             break;
                         case "P":
