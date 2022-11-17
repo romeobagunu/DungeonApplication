@@ -287,8 +287,30 @@ _____________________________________
 
                     if (player.Life <= 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(@"
+                        playerIsFighting = false;
+                        playerIsAlive = false;
+                    }
+
+                    //if(score > 15) {
+                    //    Console.WriteLine("You win!");
+                    //    playerIsFighting = false;
+                    //    playerIsAlive = false;
+                    //}
+
+                    #endregion
+
+                } while (playerIsFighting && playerIsAlive);
+                //Re-execute the COMBAT LOOP while the player is still fighting.
+                
+                #endregion
+            } while (playerIsAlive);
+            //Re-execute the GAMEPLAY LOOP while the player is still alive.
+            //This will get a new Room and Monster then re-enter the COMBAT LOOP.
+
+            #endregion
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(@"
 ┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
 ███▀▀▀██┼███▀▀▀███┼███▀█▄█▀███┼██▀▀▀
 ██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼
@@ -315,31 +337,9 @@ _____________________________________
 ┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼
 ____________________________________
 ");
-                        Console.ResetColor();
-                        Console.WriteLine("Score: {0}", score);
-                        playerIsFighting = false;
-                        playerIsAlive = false;
-                    }
-
-                    //if(score > 15) {
-                    //    Console.WriteLine("You win!");
-                    //    playerIsFighting = false;
-                    //    playerIsAlive = false;
-                    //}
-
-                    #endregion
-
-                } while (playerIsFighting && playerIsAlive);
-                //Re-execute the COMBAT LOOP while the player is still fighting.
-                
-                #endregion
-            } while (playerIsAlive);
-            //Re-execute the GAMEPLAY LOOP while the player is still alive.
-            //This will get a new Room and Monster then re-enter the COMBAT LOOP.
-
-            #endregion
-
-            Console.WriteLine("Thanks for playing!");
+            Console.ResetColor();
+            Console.WriteLine("\nThanks for playing!");
+            Console.WriteLine("\nScore: {0}", score);
 
         }//end Main()
 
