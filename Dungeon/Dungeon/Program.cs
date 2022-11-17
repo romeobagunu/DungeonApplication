@@ -55,7 +55,7 @@ _____________________________________
 
             //Store the user input in a string.
             string playerName = Console.ReadLine();
-            
+
             /* BONUS: Customizing the weapons.
                 1) Construct custom weapon objects.
                 2) Prompt user input.
@@ -131,7 +131,7 @@ _____________________________________
                 ConsoleKey raceChoice = Console.ReadKey().Key;
                 Console.Clear();//Clear the input from the console.
 
-                switch(raceChoice)
+                switch (raceChoice)
                 {
                     case ConsoleKey.H:
                         player.Race = PlayerRace.Human;//3) Assign based on input
@@ -168,8 +168,58 @@ _____________________________________
             bool playerIsAlive = true;//COUNTER for the GAMEPLAY LOOP
             bool playerIsFighting = true;//COUNTER for the COMBAT LOOP
 
+            int lvlUp1 = 0;
+            int lvlUp2 = 0;
+            int lvlUp3 = 0;
+
             do//START OF GAMEPLAY LOOP
             {
+                /*  BONUS: Level up and rewards
+                 
+                    1) At the top of the gameplay loop
+                       (i.e. When combat ends at the start of a new loop
+                        but still before getting a new room and monster)
+                    2) Check the value for score
+                    3) Based on that value, execute level-up or rewards code.
+                 
+                 */
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                switch (score)
+                {
+                    //Examples of stat increases
+                    case 3:
+                        for (int i = 0; lvlUp1 < 1; lvlUp1++)
+                        {
+                            Console.WriteLine("\nYou leveled up!");
+                            player.MaxLife += 50;//Increase their maximum life.
+                            player.Life = player.MaxLife;//Refill their life.
+                        }
+                        break;
+                    case 6:
+                        for (int i = 0; lvlUp2 < 1; lvlUp2++)
+                        {
+                            Console.WriteLine("\nYou leveled up!");
+                            player.MaxLife += 50;//Increase their maximum life.
+                            player.Life = player.MaxLife;//Refill their life.
+                        }
+                        break;
+                    //Example of loot drop
+                    case 10:
+                        for (int i = 0; lvlUp3 < 1; lvlUp3++)
+                        {
+                            Weapon sword2 = new Weapon(80, "The Master Sword", 10, false, 60, WeaponType.Sword);
+
+                            Console.WriteLine("\nYou found the Master Sword!");
+                            player.EquippedWeapon = sword2;
+                        }
+                        break;
+                };
+
+                Console.ResetColor();
+
+
+
                 //Any code at the top of this loop
                 //will execute any time the player
                 //defeats a monster.
@@ -230,13 +280,13 @@ _____________________________________
 
                     Console.Clear();
 
-                    switch(fightingChoice.ToUpper())
+                    switch (fightingChoice.ToUpper())
                     {
                         case "A":
                             Combat.DoBattle(player, monster);
 
                             //Check Monster Health
-                            if(monster.Life <= 0)
+                            if (monster.Life <= 0)
                             {
                                 //Use green text to highlight winning combat:
 
@@ -301,7 +351,7 @@ _____________________________________
 
                 } while (playerIsFighting && playerIsAlive);
                 //Re-execute the COMBAT LOOP while the player is still fighting.
-                
+
                 #endregion
             } while (playerIsAlive);
             //Re-execute the GAMEPLAY LOOP while the player is still alive.
