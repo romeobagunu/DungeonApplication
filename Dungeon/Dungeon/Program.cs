@@ -8,6 +8,44 @@ namespace Dungeon
         {
             #region Introduction
             Console.WriteLine("\n--== The Dragon's Dungeon ==--\n");
+
+            /* BONUS: To use ASCII art:
+                1) Open a Console.WriteLine()
+                2) Add an @ sign to the beginning of a string.
+                3) Paste in the ASCII art.
+                   Possible source: https://www.asciiart.eu/
+                4) Optionally, set the color before printing the art w/Console.ForegroundColor = ...
+                   then reset the color afterwards w/ Console.ResetColor();
+             */
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(@"
+
+                            .     
+                          ,*     
+                        ,*      
+                      ,P       
+                    ,8*       
+                  ,dP             
+                 d8`                
+               ,d8`               
+              d8P                            
+            ,88P                      
+           d888*       .d88P            
+          d8888b..d888888*          
+        ,888888888888888b.           
+       ,8*;88888P*****788888888ba.    
+      ,8;,8888*        `88888*         
+      )8e888*          ,88888be.      
+     ,d888`           ,8888888***     
+    ,d88P`           ,8888888Pb.     
+    888*            ,88888888**   
+    `88            ,888888888    
+     `P           ,8888888888b
+_____________________________________
+");
+            Console.ResetColor();
+
             #endregion
 
             #region Create Player
@@ -17,23 +55,174 @@ namespace Dungeon
 
             //Store the user input in a string.
             string playerName = Console.ReadLine();
-            
-            //Construct the Player's weapon:
-            Weapon weapon = new Weapon(70, "Sword", 10, true, 35, WeaponType.Sword);
 
-            //Construct the Player object:
-            //NOTE: Pass in the user input string as the Name for the Player.
-            Player player = new Player(playerName, 70, 5, 100, 100, PlayerRace.Human, weapon);
+            /* BONUS: Customizing the weapons.
+                1) Construct custom weapon objects.
+                2) Prompt user input.
+                3) Surround customization in a menu of its own.
+                4) Assign EquippedWeapon property based on user input.
+             */
 
-            #endregion
+            //1) Construct weapon objects
+            Weapon sword1 = new Weapon(40, "Broadsword", 5, true, 30, WeaponType.Sword);
+            Weapon bow1 = new Weapon(25, "Longbow", 30, true, 20, WeaponType.Bow);
+            Weapon axe1 = new Weapon(60, "War Axe", -15, true, 50, WeaponType.Axe);
 
-            #region Gameplay Loop
+            //3a) COUNTER
+            bool playerIsChoosingWeapon = true;
 
-            bool isPlaying = true;
-            bool isFighting = true;
+            Weapon chosenWeapon;//Weapon object to store user choice.
+
+            Player player = new Player(playerName, 70, 5, 100, 100, PlayerRace.Human, sword1);
 
             do
             {
+                //2a) Prompt user input
+                Console.WriteLine("\nChoose your weapon:\n" +
+                    "(S) Broadsword\n" +
+                    "(L) Longbow\n" +
+                    "(A) War Axe\n");
+                //Input prompt is a key instead of a line.
+                //That way the user just has to press the key
+                //instead of typing out a line and pressing enter.
+                ConsoleKey userKey = Console.ReadKey().Key;
+                Console.Clear();//2b)Clear the console after registering input.
+
+                switch (userKey)//Read user input
+                {
+                    case ConsoleKey.S://Values are the enumerated values of ConsoleKey
+                        playerIsChoosingWeapon = false;//3c) UPDATE
+                        player.EquippedWeapon = sword1;//4a)Assign to sword object.
+                        break;
+                    case ConsoleKey.L:
+                        playerIsChoosingWeapon = false;//3c) UPDATE
+                        player.EquippedWeapon = bow1;//4b)Assign to bow object.
+                        break;
+                    case ConsoleKey.A:
+                        playerIsChoosingWeapon = false;//3c) UPDATE
+                        player.EquippedWeapon = axe1;//4c)Assign to axe object.
+                        break;
+                    default://If they did not press one of the keys we prompted them to, reload loop
+                        Console.WriteLine("Input was invalid. Please press (S), (L), or (A).");
+                        break;
+                }
+
+            } while (playerIsChoosingWeapon);//3b) CONDITION
+
+            /* BONUS: Customizing the player race.
+                1) Prompt user input
+                2) Surround in a loop
+                3) Assign Race property based on choice.
+             */
+
+            Console.Clear();//Clear text from weapon customization
+
+            //2a) COUNTER
+            bool playerIsChoosingRace = true;
+            do
+            {
+                //1) Prompt user input
+                Console.WriteLine("\nChoose a Race:" +
+                    "\n(H) Human" +
+                    "\n(D) Dwarf" +
+                    "\n(E) Elf");
+
+                //Store key input
+                ConsoleKey raceChoice = Console.ReadKey().Key;
+                Console.Clear();//Clear the input from the console.
+
+                switch (raceChoice)
+                {
+                    case ConsoleKey.H:
+                        player.Race = PlayerRace.Human;//3) Assign based on input
+                        playerIsChoosingRace = false;//2c) UPDATE
+                        break;
+                    case ConsoleKey.D:
+                        player.Race = PlayerRace.Dwarf;//3) Assign based on input
+                        player.MaxLife = 150;//Custom properties based on race
+                        player.Life = 150;//Custom properties based on race
+                        playerIsChoosingRace = false;//2c) UPDATE
+                        break;
+                    case ConsoleKey.E:
+                        player.Race = PlayerRace.Elf;//3) Assign based on input
+                        player.MaxLife = 70;//Custom properties based on race
+                        player.Life = 70;//Custom properties based on race
+                        player.Block = 35;//Custom properties based on race
+                        playerIsChoosingRace = false;//2c) UPDATE
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. Please press (H), (D), or (E).");
+                        break;
+                }
+
+            } while (playerIsChoosingRace);//2b) CONDITION
+            #endregion
+
+            //Track the score:
+            int score = 0;
+            //We will update this score whenever the player defeats a Monster
+            //then display the score to the player when they exit the game.
+
+            #region Gameplay Loop
+
+            bool playerIsAlive = true;//COUNTER for the GAMEPLAY LOOP
+            bool playerIsFighting = true;//COUNTER for the COMBAT LOOP
+
+            int lvlUp1 = 0;
+            int lvlUp2 = 0;
+            int lvlUp3 = 0;
+
+            do//START OF GAMEPLAY LOOP
+            {
+                /*  BONUS: Level up and rewards
+                 
+                    1) At the top of the gameplay loop
+                       (i.e. When combat ends at the start of a new loop
+                        but still before getting a new room and monster)
+                    2) Check the value for score
+                    3) Based on that value, execute level-up or rewards code.
+                 
+                 */
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                switch (score)
+                {
+                    //Examples of stat increases
+                    case 3:
+                        for (int i = 0; lvlUp1 < 1; lvlUp1++)
+                        {
+                            Console.WriteLine("\nYou leveled up!");
+                            player.MaxLife += 50;//Increase their maximum life.
+                            player.Life = player.MaxLife;//Refill their life.
+                        }
+                        break;
+                    case 6:
+                        for (int i = 0; lvlUp2 < 1; lvlUp2++)
+                        {
+                            Console.WriteLine("\nYou leveled up!");
+                            player.MaxLife += 50;//Increase their maximum life.
+                            player.Life = player.MaxLife;//Refill their life.
+                        }
+                        break;
+                    //Example of loot drop
+                    case 10:
+                        for (int i = 0; lvlUp3 < 1; lvlUp3++)
+                        {
+                            Weapon sword2 = new Weapon(80, "The Master Sword", 10, false, 60, WeaponType.Sword);
+
+                            Console.WriteLine("\nYou found the Master Sword!");
+                            player.EquippedWeapon = sword2;
+                        }
+                        break;
+                };
+
+                Console.ResetColor();
+
+
+
+                //Any code at the top of this loop
+                //will execute any time the player
+                //defeats a monster.
 
                 #region Create Room & Monster
 
@@ -91,14 +280,40 @@ namespace Dungeon
 
                     Console.Clear();
 
-                    switch(fightingChoice.ToUpper())
+                    switch (fightingChoice.ToUpper())
                     {
                         case "A":
-                            //TODO: Combat Methods.
+                            Combat.DoBattle(player, monster);
+
+                            //Check Monster Health
+                            if (monster.Life <= 0)
+                            {
+                                //Use green text to highlight winning combat:
+
+                                //Select a text color by setting the ForegroundColor property
+                                //to an enum value of ConsoleColor.
+                                Console.ForegroundColor = ConsoleColor.Green;
+
+                                Console.WriteLine("\nYou killed {0}", monster.Name);
+
+                                //Make sure to reset the color of the Console afterwards.
+                                Console.ResetColor();
+
+                                //Increment the score by one.
+                                score++;
+
+                                //End this COMBAT LOOP
+                                playerIsFighting = false;
+                            }
                             break;
                         case "R":
                             Console.WriteLine("Running away!");
-                            isFighting = false;
+
+                            //Give the monster an 'attack of opportunity' when the player attempts to run away:
+                            Console.WriteLine($"{monster.Name} attacks you as you flee!");
+                            Combat.DoAttack(monster, player);
+
+                            playerIsFighting = false;
                             break;
                         case "P":
                             //Because we have an override of the ToString() method on our Player class,
@@ -110,22 +325,71 @@ namespace Dungeon
                             //TODO: Print Monster stats. (ToString() method)
                             break;
                         case "Q":
-                            isFighting = false;
-                            isPlaying = false;
+                            playerIsFighting = false;
+                            playerIsAlive = false;
                             break;
                         default:
                             Console.WriteLine("Input invalid. Please type a letter from the Menu below and press Enter.");
                             break;
                     }
 
-                } while (isFighting);
-                
+                    #region Check Player Life
+
+                    if (player.Life <= 0)
+                    {
+                        playerIsFighting = false;
+                        playerIsAlive = false;
+                    }
+
+                    //if(score > 15) {
+                    //    Console.WriteLine("You win!");
+                    //    playerIsFighting = false;
+                    //    playerIsAlive = false;
+                    //}
+
+                    #endregion
+
+                } while (playerIsFighting && playerIsAlive);
+                //Re-execute the COMBAT LOOP while the player is still fighting.
+
                 #endregion
-            } while (isPlaying);
+            } while (playerIsAlive);
+            //Re-execute the GAMEPLAY LOOP while the player is still alive.
+            //This will get a new Room and Monster then re-enter the COMBAT LOOP.
 
             #endregion
 
-            Console.WriteLine("Thanks for playing!");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(@"
+┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+███▀▀▀██┼███▀▀▀███┼███▀█▄█▀███┼██▀▀▀
+██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼█┼┼┼██┼██┼┼┼
+██┼┼┼▄▄▄┼██▄▄▄▄▄██┼██┼┼┼▀┼┼┼██┼██▀▀▀
+██┼┼┼┼██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██┼┼┼
+███▄▄▄██┼██┼┼┼┼┼██┼██┼┼┼┼┼┼┼██┼██▄▄▄
+┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+███▀▀▀███┼▀███┼┼██▀┼██▀▀▀┼██▀▀▀▀██▄┼
+██┼┼┼┼┼██┼┼┼██┼┼██┼┼██┼┼┼┼██┼┼┼┼┼██┼
+██┼┼┼┼┼██┼┼┼██┼┼██┼┼██▀▀▀┼██▄▄▄▄▄▀▀┼
+██┼┼┼┼┼██┼┼┼██┼┼█▀┼┼██┼┼┼┼██┼┼┼┼┼██┼
+███▄▄▄███┼┼┼─▀█▀┼┼─┼██▄▄▄┼██┼┼┼┼┼██▄
+┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼████▄┼┼┼▄▄▄▄▄▄▄┼┼┼▄████┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼▀▀█▄█████████▄█▀▀┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼█████████████┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼██▀▀▀███▀▀▀██┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼██┼┼┼███┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼█████▀▄▀█████┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼┼┼███████████┼┼┼┼┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼▄▄▄██┼┼█▀█▀█┼┼██▄▄▄┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼▀▀██┼┼┼┼┼┼┼┼┼┼┼██▀▀┼┼┼┼┼┼┼┼┼
+┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼
+____________________________________
+");
+            Console.ResetColor();
+            Console.WriteLine("\nThanks for playing!");
+            Console.WriteLine("\nScore: {0}", score);
 
         }//end Main()
 

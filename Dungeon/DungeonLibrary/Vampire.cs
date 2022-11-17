@@ -38,8 +38,8 @@ namespace DungeonLibrary
             //But we still assign all the properties.
             Name = "Edward";
             Description = "The love of my life";
-            Life = 60;
             MaxLife = 70;
+            Life = 60;
             HitChance = 90;
             Block = 0;
             MinDmg = 20;
