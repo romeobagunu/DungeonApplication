@@ -103,6 +103,27 @@ namespace Dungeon
                     {
                         case "A":
                             //TODO: Combat Methods.
+
+                            //Check Monster Health
+                            if(monster.Life <= 0)
+                            {
+                                //Use green text to highlight winning combat:
+
+                                //Select a text color by setting the ForegroundColor property
+                                //to an enum value of ConsoleColor.
+                                Console.ForegroundColor = ConsoleColor.Green;
+
+                                Console.WriteLine("\nYou killed {0}", monster.Name);
+
+                                //Make sure to reset the color of the Console afterwards.
+                                Console.ResetColor();
+
+                                //Increment the score by one.
+                                score++;
+
+                                //End this COMBAT LOOP
+                                playerIsFighting = false;
+                            }
                             break;
                         case "R":
                             Console.WriteLine("Running away!");
