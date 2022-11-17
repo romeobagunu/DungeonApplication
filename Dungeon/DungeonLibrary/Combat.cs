@@ -29,10 +29,14 @@ namespace DungeonLibrary
             Thread.Sleep(30);
 
             //If the attacker "hits"
-            if(roll <= (attacker.CalcHitChance() - defender.CalcBlock()))
+            if(roll <= (attacker.CalcHitChance() - defender.CalcBlock()))//TODO: Refactor Block into an Evasion property?
             {
                 //Calculate the damage
                 int damageDealt = attacker.CalcDamage();
+
+                //TODO: Add a Defense property that subtracts from attacker damage here.
+
+                //TODO: Add a Critical Hit mechanic with a percent chance?
 
                 //Subtract that damage from the defender's life
                 defender.Life -= damageDealt;
