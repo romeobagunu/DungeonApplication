@@ -18,12 +18,58 @@ namespace Dungeon
             //Store the user input in a string.
             string playerName = Console.ReadLine();
             
-            //Construct the Player's weapon:
-            Weapon weapon = new Weapon(70, "Sword", 10, true, 35, WeaponType.Sword);
+            /* BONUS: Customizing the weapons.
+                1) Construct custom weapon objects.
+                2) Prompt user input.
+                3) Surround customization in a menu of its own.
+                4) Assign EquippedWeapon property based on user input.
+             */
 
-            //Construct the Player object:
-            //NOTE: Pass in the user input string as the Name for the Player.
-            Player player = new Player(playerName, 70, 5, 100, 100, PlayerRace.Human, weapon);
+            //1) Construct weapon objects
+            Weapon sword1 = new Weapon(40, "Broadsword", 5, true, 30, WeaponType.Sword);
+            Weapon bow1 = new Weapon(25, "Longbow", 30, true, 20, WeaponType.Bow);
+            Weapon axe1 = new Weapon(60, "War Axe", -15, true, 50, WeaponType.Axe);
+
+            //3a) COUNTER
+            bool playerIsChoosingWeapon = true;
+
+            Weapon chosenWeapon;//Weapon object to store user choice.
+
+            Player player = new Player(playerName, 70, 5, 100, 100, PlayerRace.Human, sword1);
+
+            do
+            {
+                //2a) Prompt user input
+                Console.WriteLine("\nChoose your weapon:\n" +
+                    "(S) Broadsword\n" +
+                    "(L) Longbow\n" +
+                    "(A) War Axe\n");
+                //Input prompt is a key instead of a line.
+                //That way the user just has to press the key
+                //instead of typing out a line and pressing enter.
+                ConsoleKey userKey = Console.ReadKey().Key;
+                Console.Clear();//2b)Clear the console after registering input.
+
+                switch (userKey)//Read user input
+                {
+                    case ConsoleKey.S://Values are the enumerated values of ConsoleKey
+                        playerIsChoosingWeapon = false;//3c) UPDATE
+                        player.EquippedWeapon = sword1;//4a)Assign to sword object.
+                        break;
+                    case ConsoleKey.L:
+                        playerIsChoosingWeapon = false;//3c) UPDATE
+                        player.EquippedWeapon = bow1;//4b)Assign to bow object.
+                        break;
+                    case ConsoleKey.A:
+                        playerIsChoosingWeapon = false;//3c) UPDATE
+                        player.EquippedWeapon = axe1;//4c)Assign to axe object.
+                        break;
+                    default://If they did not press one of the keys we prompted them to, reload loop
+                        Console.WriteLine("Input was invalid. Please press (S), (L), or (A).");
+                        break;
+                }
+
+            } while (playerIsChoosingWeapon);//3b) CONDITION
 
             #endregion
 
