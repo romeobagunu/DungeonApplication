@@ -29,8 +29,8 @@ namespace DungeonLibrary
         {
             Name = "Michaelangelo";
             Description = "Turtle power!";
-            Life = 70;
             MaxLife = 70;
+            Life = 70;
             HitChance = 60;
             Block = 15;
             MinDmg = 20;

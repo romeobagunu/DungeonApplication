@@ -27,8 +27,8 @@ namespace DungeonLibrary
         {
             Name = "White Rabbit";
             Description = "Well, that's no ordinary rabbit! That's the most foul, cruel, and bad-tempered rodent you ever set eyes on!";
-            Life = 100;
             MaxLife = 100;
+            Life = 100;
             HitChance = 100;
             Block = 0;
             MinDmg = 5;
