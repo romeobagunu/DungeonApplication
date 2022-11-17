@@ -101,10 +101,15 @@ namespace Dungeon
                         break;
                     case ConsoleKey.D:
                         player.Race = PlayerRace.Dwarf;//3) Assign based on input
+                        player.MaxLife = 150;//Custom properties based on race
+                        player.Life = 150;//Custom properties based on race
                         playerIsChoosingRace = false;//2c) UPDATE
                         break;
                     case ConsoleKey.E:
                         player.Race = PlayerRace.Elf;//3) Assign based on input
+                        player.MaxLife = 70;//Custom properties based on race
+                        player.Life = 70;//Custom properties based on race
+                        player.Block = 35;//Custom properties based on race
                         playerIsChoosingRace = false;//2c) UPDATE
                         break;
                     default:
