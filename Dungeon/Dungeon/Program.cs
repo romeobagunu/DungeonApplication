@@ -8,6 +8,44 @@ namespace Dungeon
         {
             #region Introduction
             Console.WriteLine("\n--== The Dragon's Dungeon ==--\n");
+
+            /* BONUS: To use ASCII art:
+                1) Open a Console.WriteLine()
+                2) Add an @ sign to the beginning of a string.
+                3) Paste in the ASCII art.
+                   Possible source: https://www.asciiart.eu/
+                4) Optionally, set the color before printing the art w/Console.ForegroundColor = ...
+                   then reset the color afterwards w/ Console.ResetColor();
+             */
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(@"
+
+                            .     
+                          ,*     
+                        ,*      
+                      ,P       
+                    ,8*       
+                  ,dP             
+                 d8`                
+               ,d8`               
+              d8P                            
+            ,88P                      
+           d888*       .d88P            
+          d8888b..d888888*          
+        ,888888888888888b.           
+       ,8*;88888P*****788888888ba.    
+      ,8;,8888*        `88888*         
+      )8e888*          ,88888be.      
+     ,d888`           ,8888888***     
+    ,d88P`           ,8888888Pb.     
+    888*            ,88888888**   
+    `88            ,888888888    
+     `P           ,8888888888b
+_____________________________________
+");
+            Console.ResetColor();
+
             #endregion
 
             #region Create Player
