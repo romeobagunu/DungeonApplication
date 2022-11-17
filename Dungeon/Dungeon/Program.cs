@@ -34,11 +34,14 @@ namespace Dungeon
 
             #region Gameplay Loop
 
-            bool isPlaying = true;
-            bool isFighting = true;
+            bool playerIsAlive = true;//COUNTER for the GAMEPLAY LOOP
+            bool playerIsFighting = true;//COUNTER for the COMBAT LOOP
 
-            do
+            do//START OF GAMEPLAY LOOP
             {
+                //Any code at the top of this loop
+                //will execute any time the player
+                //defeats a monster.
 
                 #region Create Room & Monster
 
@@ -103,7 +106,7 @@ namespace Dungeon
                             break;
                         case "R":
                             Console.WriteLine("Running away!");
-                            isFighting = false;
+                            playerIsFighting = false;
                             break;
                         case "P":
                             //Because we have an override of the ToString() method on our Player class,
@@ -115,18 +118,38 @@ namespace Dungeon
                             //TODO: Print Monster stats. (ToString() method)
                             break;
                         case "Q":
-                            isFighting = false;
-                            isPlaying = false;
+                            playerIsFighting = false;
+                            playerIsAlive = false;
                             break;
                         default:
                             Console.WriteLine("Input invalid. Please type a letter from the Menu below and press Enter.");
                             break;
                     }
 
-                } while (isFighting);
+                    #region Check Player Life
+
+                    if (player.Life <= 0)
+                    {
+                        Console.WriteLine("Game over bro!");
+                        playerIsFighting = false;
+                        playerIsAlive = false;
+                    }
+
+                    //if(score > 15) {
+                    //    Console.WriteLine("You win!");
+                    //    playerIsFighting = false;
+                    //    playerIsAlive = false;
+                    //}
+
+                    #endregion
+
+                } while (playerIsFighting && playerIsAlive);
+                //Re-execute the COMBAT LOOP while the player is still fighting.
                 
                 #endregion
-            } while (isPlaying);
+            } while (playerIsAlive);
+            //Re-execute the GAMEPLAY LOOP while the player is still alive.
+            //This will get a new Room and Monster then re-enter the COMBAT LOOP.
 
             #endregion
 
